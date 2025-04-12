@@ -14,7 +14,7 @@ const msalConfig = {
         clientSecret: 'Y52b92478-47e6-4e1c-b4e9-f12a180f357a'
     }
 };
-
+//test pipeline
 const cca = new msal.ConfidentialClientApplication(msalConfig);
 
 // API Endpoints
