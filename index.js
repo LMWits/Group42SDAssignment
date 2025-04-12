@@ -9,7 +9,7 @@ app.use(express.json());
 // MSAL configuration
 const msalConfig = {
     auth: {
-        clientId: 'YOUR_CLIENT_ID', // Replace with your Azure AD App's Client ID
+        clientId: 'd2a761e2-846c-453f-ada6-d1a7144ed0bf', // Replace with your Azure AD App's Client ID
         authority: 'https://login.microsoftonline.com/YOUR_TENANT_ID', // Replace with your Azure AD Tenant ID
         clientSecret: 'YOUR_CLIENT_SECRET' // Replace with your Azure AD App's Client Secret
     }
