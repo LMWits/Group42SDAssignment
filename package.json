@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@azure/msal-node": "^3.5.0",
+    "express": "^5.1.0"
+  }
+}
