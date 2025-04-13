@@ -1,7 +1,7 @@
 const express = require('express');
 // const msal = require('@azure/msal-node');
 const app = express();
-const port = 3000;
+const port = 8080;
 
 // Middleware to parse JSON
 app.use(express.json());
