@@ -8,6 +8,7 @@
     "nyc": "^17.1.0"
   },
   "scripts": {
+    "start": "node ./src/index.js",
     "test": "mocha --recursive 'tests/**/*.js'",
     "coverage": "nyc --reporter=lcov --reporter=text-summary mocha --recursive 'tests/**/*.js'"
   }
