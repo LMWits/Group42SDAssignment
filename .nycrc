@@ -5,5 +5,5 @@
     "text-summary"
   ],
   "include": ["src/**/*.js"],
-  "exclude": ["test/**/*.js"]
+  "exclude": ["tests/**/*.js"]
 }
