@@ -173,3 +173,29 @@ margin: 15px 15px;
     font-size: 1rem;
     text-align: center;
 }
+#MSlogin {                        
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 45px;
+    background-color: #2F2F96;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    transition: background 0.3s ease;
+    padding: 0 20px;
+}
+
+#MSlogin:hover {                
+    background-color: #1e1e73;
+}
+
+#MSlogin img {                 
+    height: 24px;
+    width: 24px;
+}
