@@ -10,7 +10,7 @@ body
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    /* background: url(bg.JPG) no-repeat; */
+    background: url(bg.JPG) no-repeat; 
     background-size: cover;
     background-position: center;
 
@@ -125,11 +125,6 @@ margin: 15px 15px;
 
 }
 
-.subBtn button.disable
-{
-    background: #aeaeae;
-    color: #333;
-}
 .rounded-button
 {
     height: 150px;
@@ -166,10 +161,25 @@ margin: 15px 15px;
     opacity: 0;
     display: none;
     color: white;
-    background-color: darkcyan;
+    background-color:#333;
     padding: 10px 20px;
     margin: 10px;
     border-radius: 5px;
     font-size: 1rem;
     text-align: center;
 }
+
+.third-party button
+{
+    background: white;
+    outline: none;
+    border:none;
+    color:#333;
+    height: 40px;
+    width:360px;
+    border-radius: 40px;
+    font-weight: 600;
+    cursor: pointer
+
+}
+
