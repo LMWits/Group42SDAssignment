@@ -1,1 +1,38 @@
-//
+<!-- User UI Login/signup.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Sign Up</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="./firebaseAuth.js"></script>
+</head>
+<body>
+  <article class="form-group">
+    <form>
+      <h1 id="titleField">User Sign Up</h1>
+      <p id="signInMessage" class="errorMessage" style="display:none;"></p>
+
+      <section class="input-field">
+        <section class="input-box" id="nameField">
+          <input id="Name" type="text" placeholder="Name">
+        </section>
+        <section class="input-box">
+          <input id="Email" type="text" placeholder="Email">
+        </section>
+        <section class="input-box">
+          <input id="Password" type="password" placeholder="Password">
+        </section>
+      </section>
+
+      <section class="subBtn">
+        <button type="submit" id="signUpbtn">Sign Up</button>
+      </section>
+
+      <section class="third-party">
+        <p>Already have an account? <a href="login.html">Sign In</a></p>
+      </section>
+    </form>
+  </article>
+</body>
+</html>
+
