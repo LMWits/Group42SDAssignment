@@ -1,0 +1,175 @@
+*
+{
+    margin: 0;
+    padding:0;
+
+}
+body
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* background: url(bg.JPG) no-repeat; */
+    background-size: cover;
+    background-position: center;
+
+}
+.form-group
+{
+    width: 420px;
+    height: 500px;
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 30px;
+    backdrop-filter: blur(10);
+}
+
+.form-group h1
+{
+    font-size: 36px;
+    text-align: center;
+    color: #333;
+}
+
+
+.input-box
+{
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+    max-height: 65px;
+    transition: max-height 0.5s;
+    overflow: hidden;
+}
+
+.input-box input
+{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    font-size: 16;
+    padding:  20px 45px 20px 20px;
+}
+
+.input-box input ::placeholder
+{
+    color: #fff;
+}
+
+
+.form-group .btn
+{
+    width: 100%;
+    height: 45px;
+    background:rgb(3, 44, 3);
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 26px;
+    color: white;
+    font-weight: 600;
+    margin: 15px 0;
+}
+
+
+.form-group .third-party
+{
+    font-size: 14.5px;
+    text-align: center;
+    margin: 15px 15px;
+}
+
+ .third-party p a
+{
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+
+}
+
+.third-party p a:hover
+{
+    text-decoration: underline;
+}
+
+.subBtn
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.subBtn button
+{
+flex-basis: 48%;
+background: rgb(3, 44, 3);
+color: white;
+height: 40px;
+border-radius: 40px;
+border: 0;
+outline: 0;
+cursor: pointer;
+transition: background 1s;
+font-weight: 600;
+margin: 15px 15px;
+
+}
+
+.subBtn button.disable
+{
+    background: #aeaeae;
+    color: #333;
+}
+.rounded-button
+{
+    height: 150px;
+    width: 150px;
+    font-size: 100px;
+    background: rgb(3, 44, 3);;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    display: flex;
+    cursor: pointer;
+    border-radius: 50%;
+    border: none;
+    text-decoration: none;
+    margin: 30px 30px;
+
+}
+
+
+.userBtn {
+    display: flex;
+    flex-direction: row; /* horizontal layout */
+    align-items: center; /* vertically align icon and label */
+    gap: 20px; /* space between icon and label */
+    margin: 20px;
+}
+
+.userBtn h2 {
+    font-size: 24px;
+    color:#333;
+}
+.errorMessage {
+    transition: opacity 0.5s ease;
+    opacity: 0;
+    display: none;
+    color: white;
+    background-color: darkcyan;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+}
