@@ -1,0 +1,21 @@
+[
+    {
+      "title": "Constitution 1982",
+      "type": "PDF",
+      "year": 1982,
+      "path": ["Human Rights", "Legal"]
+    },
+    {
+      "title": "Declaration of Rights",
+      "type": "DOCX",
+      "year": 1994,
+      "path": ["Human Rights", "Foundational"]
+    },
+    {
+        "title": "Human Right info",
+        "type": "PDF",
+        "year": 2025,
+        "path": ["Human Rights", "Foundational"]
+    }
+  ]
+  
