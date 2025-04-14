@@ -25,8 +25,8 @@ const firebaseConfig = {
   projectId: "group42sdproject",
   storageBucket: "group42sdproject.firebasestorage.app",
   messagingSenderId: "741179377608",
-  appId: "1:741179377608:web:194b7f53db28312824e2fd",
-  measurementId: "G-P1C8Y3H2LJ"
+  appId: "1:741179377608:web:86c2409951d770f224e2fd",
+  measurementId: "G-6MGSMSMPZV"
 };
 
 // Initialize Firebase
