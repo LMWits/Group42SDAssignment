@@ -1,4 +1,3 @@
-
 *
 {
     margin: 0;
@@ -11,7 +10,7 @@ body
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url(bg.JPG) no-repeat;
+    /* background: url(bg.JPG) no-repeat; */
     background-size: cover;
     background-position: center;
 
@@ -161,4 +160,16 @@ margin: 15px 15px;
 .userBtn h2 {
     font-size: 24px;
     color:#333;
+}
+.errorMessage {
+    transition: opacity 0.5s ease;
+    opacity: 0;
+    display: none;
+    color: white;
+    background-color: darkcyan;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
 }

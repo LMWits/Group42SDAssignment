@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <link rel="frontPage" href="frontPage.html">
+        <script type ="module" src="./firebaseAuth.js"></script>
+        <script type="module" src="./auth.js"></script>
+
+    </head>
+    <body>
+        <article class="form-group">
+            <form>
+                <h1 id="titleField">Sign Up</h1>
+                <p id="signInMessage" class="errorMessage" style="display:none;"></p>
+                <section class="input-field">
+                    <section class="input-box" id="nameField">
+                        <input id = "Name" type="text" placeholder="Name">
+                    </section>
+                    <section class="input-box">
+                        <input id="Email" type="text" placeholder="Email">
+                    </section>
+                    <section class="input-box">
+                        <input id="Password" type="password" placeholder="Password">
+                    </section\>
+                    
+            
+                </section>
+
+                <section class="third-party">
+                    <h2>Microsoft Login Test</h2>
+                    <button id="MSlogin" type="button">Sign in with Microsoft</button>
+                  </section>
+          
+
+               <section class="subBtn">
+                <button type="submit" id="signUpbtn">Sign Up</button>
+                <button type="submit" id="signInbtn" class="disable">Sign In</button>
+               </section>
+
+            </form>
+        </article>
+<script>
+    // let signUpbtn= document.getElementById("signUpbtn");
+    // let signInbtn= document.getElementById("signInbtn");
+    // let nameField= document.getElementById("nameField");
+    // let titleField= document.getElementById("titleField");
+
+    // signInbtn.onclick=function()
+    // {
+    //     nameField.style.maxHeight="0";
+    //     titleField.innerHTML="Sign In";
+    //     signUpbtn.classList.add("disable");
+    //     signInbtn.classList.remove("disable");
+
+    // }
+
+    // signUpbtn.onclick=function()
+    // {
+    //     nameField.style.maxHeight="60px"
+    //     titleField.innerHTML="Sign Up";
+    //     signUpbtn.classList.remove("disable");
+    //     signInbtn.classList.add("disable");
+
+    // }
+
+
+</script>
+    </body>
+</html>
