@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
           //const credential = OAuthProvider.credentialFromResult(result);
           //const accessToken = credential?.accessToken;
           //const idToken = credential?.idToken;
-          window.location.href = 'homePage.html';
+          window.location.href = 'homePage.html'; 
           console.log("✅ Signed in:", result.user);
         })
         .catch((error) => {
