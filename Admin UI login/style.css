@@ -10,7 +10,7 @@ body
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url(bg.JPG) no-repeat; 
+    background: url(bg.JPG) no-repeat;
     background-size: cover;
     background-position: center;
 
@@ -171,15 +171,52 @@ margin: 15px 15px;
 
 .third-party button
 {
-    background: white;
+    background: transparent;
     outline: none;
     border:none;
-    color:#333;
+    color:white;
+    border-radius: 40px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+
+
+}
+
+.accLink button
+{
+    background: transparent;
+    color: white;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    margin: 0;
+    justify-content: center;
+    width: 300px;
+    text-decoration: underline;
+    font-weight: 600;
+    justify-content: center;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.sendbtn button
+{
+    background: rgb(3, 44, 3);;
+    outline: none;
+    border:none;
+    color:white;
     height: 40px;
     width:360px;
     border-radius: 40px;
     font-weight: 600;
-    cursor: pointer
+    cursor: pointer;
+    margin:15px 30px;
 
 }
 
+.hidden
+{
+    display: none;
+
+}
