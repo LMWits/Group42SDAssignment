@@ -24,7 +24,7 @@ import { browserPopupRedirectResolver } from "https://www.gstatic.com/firebasejs
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const auth = initializeAuth(app, {persistence: indexedDBLocalPersistence, popupRedirectResolver: browserPopupRedirectResolver}); 
+  const auth = initializeAuth(app, {persistence: indexedDBLocalPersistence, popupRedirectResolver: browserPopupRedirectResolver});
   const provider = new OAuthProvider('microsoft.com');
 
   provider.addScope('email');  // Add email scope
@@ -32,14 +32,14 @@ import { browserPopupRedirectResolver } from "https://www.gstatic.com/firebasejs
   provider.setCustomParameters({
     prompt: 'login' // forces user to re-select or sign in
   });
-  
+
   export { auth, provider };
   const analytics = getAnalytics(app);
   console.log(auth); // should be an initialized auth instance
   console.log(provider); // should be an OAuthProvider with 'microsoft.com'
-  
+
   function showMessage(message, pId){
-    
+
     var errorMessage = document.getElementById(pId);
     errorMessage.style.display = "block";
     errorMessage.innerText = message;
@@ -50,10 +50,10 @@ import { browserPopupRedirectResolver } from "https://www.gstatic.com/firebasejs
   }
 
   const signUp = document.getElementById('signUpbtn');
-  
+
   signUp.addEventListener('click', (event) => {
     event.preventDefault();
-  
+
     const email = document.getElementById('Email').value;
     const password = document.getElementById('Password').value;
     const name = document.getElementById('Name').value;
@@ -63,7 +63,7 @@ import { browserPopupRedirectResolver } from "https://www.gstatic.com/firebasejs
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       console.log('createUserWithEmailAndPassword');
-    
+
         const user = userCredential.user;
         const userData = {
             email: email,
@@ -95,7 +95,7 @@ import { browserPopupRedirectResolver } from "https://www.gstatic.com/firebasejs
       const email = document.getElementById('Email').value;
       const password = document.getElementById('Password').value;
 
-      
+
 
       signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
