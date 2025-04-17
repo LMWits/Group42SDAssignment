@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const role = userDoc.data().role;
       if (role === "admin") {
         showMessage("This is an admin account. Please use the admin login page.");
+        return;
       } else if (role === "user") {
         window.location.href = "userDashboard.html";
       } else {
