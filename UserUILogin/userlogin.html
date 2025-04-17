@@ -1,39 +1,78 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>User Login</title>
+  <title>User Access</title>
   <link rel="stylesheet" href="style.css">
-  <script type="module" src="./auth.js"></script>
   <script type="module" src="./firebaseAuth.js"></script>
+  <script type="module" src="./auth.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 <body>
   <article class="form-group">
     <form>
-      <h1 id="titleField">User Login</h1>
+      <h1 id="titleField">Sign Up</h1>
       <p id="signInMessage" class="errorMessage" style="display:none;"></p>
 
       <section class="input-field">
-        <section class="input-box">
-          <input id="Email" type="text" placeholder="Email" />
+        <section class="input-box" id="nameField">
+          <input id="Name" type="text" placeholder="Name">
         </section>
         <section class="input-box">
-          <input id="Password" type="password" placeholder="Password" />
+          <input id="Email" type="text" placeholder="Email">
+        </section>
+        <section class="input-box">
+          <input id="Password" type="password" placeholder="Password">
         </section>
       </section>
 
-      <section class="subBtn">
-        <button type="submit" id="signInbtn">Sign In</button>
+      <section class="sendBtn">
+        <button type="submit" id="signInbtn" class="hidden">Sign In</button>
+        <button type="submit" id="signUpbtn">Sign Up</button>
+      </section>
+
+      <section class="or-divider">
+        <p class="or-text">OR</p>
       </section>
 
       <section class="third-party">
-        <h2>Or use Microsoft:</h2>
         <button id="MSlogin" type="button">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft Logo" />
-          <span>Sign in with Microsoft</span>
+          <img src="mslogo.png" alt="Microsoft Logo" > Sign in with Microsoft
         </button>
+      </section>
+
+      <section class="accLink">
+        <button type="button" id="signUpLink">Have an account? Sign In Here</button>
+        <button type="button" id="signInLink" class="hidden">Don't have an account? Sign Up Here</button>
       </section>
     </form>
   </article>
+
+  <script>
+    const signUpLink = document.getElementById("signUpLink");
+    const signInLink = document.getElementById("signInLink");
+    const nameField = document.getElementById("nameField");
+    const titleField = document.getElementById("titleField");
+    const signUpbtn = document.getElementById("signUpbtn");
+    const signInbtn = document.getElementById("signInbtn");
+
+    signUpLink.onclick = function () {
+      nameField.style.maxHeight = "0";
+      titleField.textContent = "Sign In";
+      signUpLink.classList.add("hidden");
+      signInLink.classList.remove("hidden");
+      signUpbtn.classList.add("hidden");
+      signInbtn.classList.remove("hidden");
+    };
+
+    signInLink.onclick = function () {
+      nameField.style.maxHeight = "60px";
+      titleField.textContent = "Sign Up";
+      signInLink.classList.add("hidden");
+      signUpLink.classList.remove("hidden");
+      signUpbtn.classList.remove("hidden");
+      signInbtn.classList.add("hidden");
+    };
+  </script>
 </body>
 </html>
-
