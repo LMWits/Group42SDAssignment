@@ -92,7 +92,7 @@ if (signUp) {
         const docRef = doc(db, "users", user.uid);
         setDoc(docRef, userData)
           .then(() => {
-            window.location.href = 'UserUILogin/Userindex.html';
+            window.location.href = 'UserUILogin/userlogin.html';
           })
           .catch((error) => {
             console.error("Error Occurred When Writing Document", error);
