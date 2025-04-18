@@ -30,10 +30,13 @@ const db = getFirestore(app);
 function showMessage(message) {
   const messageBox = document.getElementById("loginMessage");
   messageBox.textContent = message;
-  messageBox.style.display = "block";
+  messageBox.style.opacity = "1";
+  messageBox.style.pointerEvents = "auto";
+
   setTimeout(() => {
-    messageBox.style.display = "none";
-  }, 4000);
+    messageBox.style.opacity = "0";
+    messageBox.style.pointerEvents = "none";
+    }, 4000);
 }
 
 // Login logic
