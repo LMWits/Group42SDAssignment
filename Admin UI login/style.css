@@ -120,8 +120,6 @@
     background: #e6f0ff;
   }
 
-
-
   .accLink {
     text-align: center;
     margin-top: 1rem;
@@ -150,4 +148,26 @@
 
   .hidden {
     display: none;
+  }
+
+  .userBtn
+  {
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  }
+  .rounded-button
+  {
+    width: 150px;
+    height: 150px;
+    background-color: #ffdb4d;
+    color: #0b1d3a ;
+    font-size: 60px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size:100px;
+
   }
