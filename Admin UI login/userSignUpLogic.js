@@ -26,12 +26,22 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 // Show feedback
+// ✅ Message fade-in/out logic
 function showMessage(message) {
   const messageBox = document.getElementById("signupMessage");
+  if (!messageBox) return;
+
   messageBox.textContent = message;
-  messageBox.style.display = "block";
+  messageBox.style.display = "block";      // override style.css
+  messageBox.style.opacity = "1";
+  messageBox.style.pointerEvents = "auto";
+
   setTimeout(() => {
-    messageBox.style.display = "none";
+    messageBox.style.opacity = "0";
+    messageBox.style.pointerEvents = "none";
+    setTimeout(() => {
+      messageBox.style.display = "none";
+    }, 500); // wait for fade-out to complete
   }, 4000);
 }
 
