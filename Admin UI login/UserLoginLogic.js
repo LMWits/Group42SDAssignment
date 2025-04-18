@@ -29,15 +29,26 @@ const db = getFirestore(app);
 // Utility to show messages
 function showMessage(message) {
   const messageBox = document.getElementById("loginMessage");
+  if (!messageBox) return;
+
   messageBox.textContent = message;
+
+  // ✅ Override the style.css 'display: none' here
+  messageBox.style.display = "block";
   messageBox.style.opacity = "1";
   messageBox.style.pointerEvents = "auto";
 
   setTimeout(() => {
     messageBox.style.opacity = "0";
     messageBox.style.pointerEvents = "none";
-    }, 4000);
+    
+    // Optional: reset display to none after fade-out
+    setTimeout(() => {
+      messageBox.style.display = "none";
+    }, 500); // allow fade-out to finish before hiding completely
+  }, 4000);
 }
+
 
 // Login logic
 document.addEventListener("DOMContentLoaded", () => {
