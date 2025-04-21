@@ -5,6 +5,7 @@
   <title>User Sign Up</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="./userSignUpLogic.js"></script>
+  <script type="module" src="./auth.js"></script> <!-- 👈 Microsoft login logic -->
 </head>
 <body>
   <article class="form-group">
@@ -16,6 +17,24 @@
       <input id="Email" type="email" placeholder="Email" required /><br><br>
       <input id="Password" type="password" placeholder="Password" required /><br><br>
       <button id="signupBtn">Create Account</button>
+    </section>
+
+    <!-- Divider -->
+    <section class="or-divider">
+      <p class="or-text">OR</p>
+    </section>
+
+    <!-- Microsoft Sign-In -->
+    <section class="third-party">
+      <button id="MSlogin" type="button">
+        <img src="mslogo.png" alt="Microsoft Logo" style="height: 20px; vertical-align: middle;" />
+        <span style="margin-left: 8px;">Sign in with Microsoft</span>
+      </button>
+    </section>
+
+    <!-- Link to sign-in -->
+    <section class="accLink">
+      <p>Already have an account? <a href="userlogin.html">Sign In</a></p>
     </section>
   </article>
 </body>
