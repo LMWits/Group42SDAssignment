@@ -5,6 +5,7 @@
   <title>User Login</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="./UserLoginLogic.js"></script>
+  <script type="module" src="./auth.js"></script> <!-- Microsoft login handler -->
 </head>
 <body>
   <article class="form-group">
@@ -15,6 +16,17 @@
       <input id="Email" type="email" placeholder="Email" required /><br><br>
       <input id="Password" type="password" placeholder="Password" required /><br><br>
       <button id="loginBtn">Login</button>
+    </section>
+
+    <section class="or-divider">
+      <p class="or-text">OR</p>
+    </section>
+
+    <section class="third-party">
+      <button id="MSlogin" type="button">
+        <img src="mslogo.png" alt="Microsoft Logo" style="height:20px; vertical-align:middle;"> 
+        Sign in with Microsoft
+      </button>
     </section>
   </article>
 </body>
