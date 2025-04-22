@@ -5,36 +5,42 @@
   <title>User Sign Up</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="./userSignUpLogic.js"></script>
-  <script type="module" src="./auth.js"></script> <!-- 👈 Microsoft login logic -->
+  <script type="module" src="./auth.js"></script> 
 </head>
 <body>
   <article class="form-group">
-    <h1>User Sign Up</h1>
+    <h1>Sign Up</h1>
     <p id="signupMessage" class="errorMessage" style="display:none; color:red;"></p>
 
     <section class="input-field">
-      <input id="Name" type="text" placeholder="Full Name" required /><br><br>
-      <input id="Email" type="email" placeholder="Email" required /><br><br>
-      <input id="Password" type="password" placeholder="Password" required /><br><br>
-      <button id="signupBtn">Create Account</button>
+      <section class="input-box" id="nameField">
+        <input id = "Name" type="text" placeholder="Name">
+      </section>
+      <section class="input-box">
+        <input id="Email" type="text" placeholder="Email">
+      </section>
+      <section class="input-box">
+        <input id="Password" type="password" placeholder="Password">
+      </section>
     </section>
 
-    <!-- Divider -->
+    <section class="sendBtn">
+      <button type="submit" id="signupBtn"> Sign Up</button>
+    </section>
+
     <section class="or-divider">
       <p class="or-text">OR</p>
     </section>
 
-    <!-- Microsoft Sign-In -->
     <section class="third-party">
       <button id="MSlogin" type="button">
         <img src="mslogo.png" alt="Microsoft Logo" style="height: 20px; vertical-align: middle;" />
-        <span style="margin-left: 8px;">Sign in with Microsoft</span>
+        Sign in with Microsoft
       </button>
     </section>
 
-    <!-- Link to sign-in -->
     <section class="accLink">
-      <p>Already have an account? <a href="userlogin.html">Sign In</a></p>
+      <p>Already have an account? <a href="userLogin.html">Sign In Here</a></p>
     </section>
   </article>
 </body>
