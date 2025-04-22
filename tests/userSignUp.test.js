@@ -1,7 +1,7 @@
-const assert = require('assert');
+import assert from 'assert';
 
-// ✅ Import the file you want code coverage for
-require('../Admin UI login/userSignUpLogic.js');
+// ✅ Import the file to trigger it and collect coverage
+import '../Admin UI login/userSignUpLogic.js';
 
 describe('User Sign Up Flow', () => {
   it('should pass a basic sanity test', () => {
