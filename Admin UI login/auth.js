@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      window.location.href = "Group42SDAssignment/ZSFileAccesUpload1/public/adminHP.html";
+      window.location.href = "/ZSFileAccesUpload1/adminHP.html";
 
     } catch (error) {
       console.error("❌ Microsoft Sign-In failed:", error.code, error.message);
