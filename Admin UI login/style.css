@@ -56,7 +56,8 @@
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 25px;
     font-size: 1rem;
-    background: transparent
+    background: transparent;
+    color: white;
 
 
   }
@@ -189,3 +190,8 @@
     font-size:100px;
 
   }
+
+  .userBtn h2
+{
+  color: white;
+}
