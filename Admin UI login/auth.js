@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      window.location.href = "../ZSFileAccesUpload1/public/adminHP.html";
+      window.location.href = "https://https://group42backend-cxdxgmhrduhye8b3.uksouth-01.azurewebsites.net/public/adminHP.html";
 
     } catch (error) {
       console.error("❌ Microsoft Sign-In failed:", error.code, error.message);

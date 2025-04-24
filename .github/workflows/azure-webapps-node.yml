@@ -24,7 +24,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: Group42Backend    # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
+  AZURE_WEBAPP_PACKAGE_PATH: './ZSFileAccesUpload1'      # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '22.x'                # set this to the node version to use
 
 permissions:
@@ -44,18 +44,19 @@ jobs:
 
     - name: npm install, build, and test
       run: |
+        cd ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
         npm install
         npm run build --if-present
         npm run test --if-present
-    - name: Run tests with coverage
-      run: npm run coverage
-      continue-on-error: false
-    - name: Upload coverage report
-      uses: actions/upload-artifact@v4
-      if: success()
-      with:
-        name: coverage-report
-        path: ./coverage
+    # - name: Run tests with coverage
+    #   run: npm run coverage
+    #   continue-on-error: false
+    # - name: Upload coverage report
+    #   uses: actions/upload-artifact@v4
+    #   if: success()
+    #   with:
+    #     name: coverage-report
+    #     path: ./coverage
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v4
       with:
