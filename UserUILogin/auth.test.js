@@ -1,4 +1,4 @@
-const { sum } = require('./auth');
+import { sum } from './auth.js';
 
 test('adds 1 + 2 to equal 3', () => {
   expect(sum(1, 2)).toBe(3);

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "npm install express\r npm install express @azure/msal-node\r npm install",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "jest --coverage"
   },
