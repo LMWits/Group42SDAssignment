@@ -20,5 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-  
-  
+
+const sum = (a, b) => a + b;
+
+module.exports = { sum };
+
+

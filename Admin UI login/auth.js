@@ -135,5 +135,9 @@ function showMessage(message) {
   }, 4000);
 }
 
-  
-  
+const sum = (a, b) => a + b;
+
+module.exports = { sum };
+
+
+

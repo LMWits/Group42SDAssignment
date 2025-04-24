@@ -1,0 +1,29 @@
+{
+  "name": "group42sdassignment",
+  "version": "1.0.0",
+  "description": "npm install express\r npm install express @azure/msal-node\r npm install",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LMWits/Group42SDAssignment.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LMWits/Group42SDAssignment/issues"
+  },
+  "homepage": "https://github.com/LMWits/Group42SDAssignment#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "coverageReporters": ["text", "lcov"]
+  }
+}
