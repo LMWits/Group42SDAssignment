@@ -1,31 +1,8 @@
-/*import { auth, provider } from './firebaseAuth.js';
-import { signInWithPopup, OAuthProvider } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
-
-document.addEventListener('DOMContentLoaded', () => {
-    const loginBtn = document.getElementById('MSlogin');
-    if (!loginBtn) {
-      console.error("Button with ID 'MSlogin' not found.");
-      return;
-    }
-  
-    loginBtn.addEventListener('click', () => {
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          //const credential = OAuthProvider.credentialFromResult(result);
-          //const accessToken = credential?.accessToken;
-          //const idToken = credential?.idToken;
-          window.location.href = 'homePage.html'; 
-          console.log("✅ Signed in:", result.user);
-        })
-        .catch((error) => {
-          console.error("❌ Popup Error:", error.code, error.message);
-        });
-    });
-  });*/
-
 import { auth, provider } from './firebaseAuth.js';
 import {
-  signInWithPopup
+  signInWithPopup, 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword 
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 import {
   getFirestore,
@@ -35,6 +12,72 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
 const db = getFirestore();
+
+const signUp = document.getElementById('signUpbtn');
+
+  signUp.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById('Email').value;
+    const password = document.getElementById('Password').value;
+    const name = document.getElementById('Name').value;
+
+    const db = getFirestore();
+
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      console.log('createUserWithEmailAndPassword');
+
+        const user = userCredential.user;
+        const userData = {
+            email: email,
+            name: name,
+        };
+        showMessage('Acount Created Successfully', 'signInMessage');
+        const docRef = doc(db, "users", user.uid);
+        setDoc(docRef, userData)
+        .then(() => {
+            window.location.href = 'adminLogin.html';
+        })
+        .catch((error) => {
+            console.error("Error Occurred When Writing Document", error);
+        });
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        if(errorCode == 'auth/email-already-in-use') {
+            showMessage('Email Address Already Exists!', 'signInMessage');
+        } else {
+            showMessage('Unable to Create User', 'signInMessage');
+        }
+    })
+  });
+
+
+const signIn = document.getElementById('signInbtn');
+signIn.addEventListener('click', (event) => {
+  event.preventDefault();
+    const email = document.getElementById('Email').value;
+    const password = document.getElementById('Password').value;
+
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      showMessage("Login Is Successful",'signInMessage');
+      const user = userCredential.user;
+      localStorage.setItem('loggedInUserId', user.uid);
+      window.location.href = "https://group42backend-cxdxgmhrduhye8b3.uksouth-01.azurewebsites.net/adminHP.html";
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      if(errorCode === 'auth/invalid-credential'){
+        showMessage('Incorrect Email or Password', 'signInMessage');
+      } else if(email == null || password == null){
+        showMessage('Incorrect Email or Password', 'signInMessage');
+      } else {
+        showMessage('Account Does Not Exist', 'signInMessage');
+      }
+    })
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   const loginBtn = document.getElementById('MSlogin');
@@ -64,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      window.location.href = "https://https://group42backend-cxdxgmhrduhye8b3.uksouth-01.azurewebsites.net/public/adminHP.html";
+      window.location.href = "https://group42backend-cxdxgmhrduhye8b3.uksouth-01.azurewebsites.net/adminHP.html";
 
     } catch (error) {
       console.error("❌ Microsoft Sign-In failed:", error.code, error.message);
