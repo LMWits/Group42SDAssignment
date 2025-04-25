@@ -44,7 +44,7 @@ provider.addScope('email');
 provider.addScope('profile');
 provider.setCustomParameters({ prompt: 'login' });
 
-export { auth, provider };
+export { auth, provider, showMessage };
 
 // Utility Function
 function showMessage(message, pId) {

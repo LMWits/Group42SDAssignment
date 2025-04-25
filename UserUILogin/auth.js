@@ -1,6 +1,9 @@
 import { auth, provider } from './firebaseAuth.js';
 import { signInWithPopup, OAuthProvider } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 
+// Import showMessage function from firebaseAuth
+import { showMessage } from './firebaseAuth.js';
+
 document.addEventListener('DOMContentLoaded', () => {
   const loginBtn = document.getElementById('MSlogin');
 
@@ -15,14 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch((error) => {
           console.error("❌ Popup Error:", error.code, error.message);
-          alert("Microsoft login failed. Try again.");
+          // Use showMessage instead of alert
+          showMessage("Microsoft login failed. Try again.", 'signInMessage');
         });
     });
   }
 });
-
-const sum = (a, b) => a + b;
-
-module.exports = { sum };
-
-
