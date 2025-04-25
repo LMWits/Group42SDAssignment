@@ -13,20 +13,32 @@ import {
 
 const db = getFirestore();
 
- function showMessage(message, pId){
- 
-     var errorMessage = document.getElementById(pId);
-     errorMessage.style.display = "block";
-     errorMessage.innerText = message;
-     errorMessage.style.opacity = 1;
-     setTimeout(function(){
-         errorMessage.style.opacity = 0;
-     },4000)
-   }
+function showMessage(message, pId){
+    var errorMessage = document.getElementById(pId);
+    if (!errorMessage) {
+        // Fallback to generic message elements if pId element doesn't exist
+        errorMessage = document.getElementById("signupMessage") || document.getElementById("loginMessage");
+    }
+    
+    if (errorMessage) {
+        errorMessage.style.display = "block";
+        errorMessage.innerText = message;
+        errorMessage.style.opacity = 1;
+        errorMessage.style.pointerEvents = "auto";
+        
+        setTimeout(function(){
+            errorMessage.style.opacity = 0;
+            errorMessage.style.pointerEvents = "none";
+            setTimeout(() => {
+                errorMessage.style.display = "none";
+            }, 500);
+        }, 4000);
+    }
+}
 
 const signUp = document.getElementById('signUpbtn');
 
-  signUp.addEventListener('click', (event) => {
+signUp.addEventListener('click', (event) => {
     event.preventDefault();
 
     const email = document.getElementById('Email').value;
@@ -37,7 +49,7 @@ const signUp = document.getElementById('signUpbtn');
 
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      console.log('createUserWithEmailAndPassword');
+        console.log('createUserWithEmailAndPassword');
 
         const user = userCredential.user;
         const userData = {
@@ -62,89 +74,69 @@ const signUp = document.getElementById('signUpbtn');
             showMessage('Unable to Create User', 'signInMessage');
         }
     })
-  });
-
+});
 
 const signIn = document.getElementById('signInbtn');
 signIn.addEventListener('click', (event) => {
-  event.preventDefault();
+    event.preventDefault();
     const email = document.getElementById('Email').value;
     const password = document.getElementById('Password').value;
 
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      showMessage("Login Is Successful",'signInMessage');
-      const user = userCredential.user;
-      localStorage.setItem('loggedInUserId', user.uid);
-      window.location.href = "https://group42backend-cxdxgmhrduhye8b3.uksouth-01.azurewebsites.net/adminHP.html";
+        showMessage("Login Is Successful",'signInMessage');
+        const user = userCredential.user;
+        localStorage.setItem('loggedInUserId', user.uid);
+        window.location.href = "https://group42backend-cxdxgmhrduhye8b3.uksouth-01.azurewebsites.net/adminHP.html";
     })
     .catch((error) => {
-      const errorCode = error.code;
-      if(errorCode === 'auth/invalid-credential'){
-        showMessage('Incorrect Email or Password', 'signInMessage');
-      } else if(email == null || password == null){
-        showMessage('Incorrect Email or Password', 'signInMessage');
-      } else {
-        showMessage('Account Does Not Exist', 'signInMessage');
-      }
+        const errorCode = error.code;
+        if(errorCode === 'auth/invalid-credential'){
+            showMessage('Incorrect Email or Password', 'signInMessage');
+        } else if(email == null || password == null){
+            showMessage('Incorrect Email or Password', 'signInMessage');
+        } else {
+            showMessage('Account Does Not Exist', 'signInMessage');
+        }
     })
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  const loginBtn = document.getElementById('MSlogin');
-  if (!loginBtn) return;
+    const loginBtn = document.getElementById('MSlogin');
+    if (!loginBtn) return;
 
-  loginBtn.addEventListener('click', async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
+    loginBtn.addEventListener('click', async () => {
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
 
-      const userRef = doc(db, "users", user.uid);
-      const userDoc = await getDoc(userRef);
+            const userRef = doc(db, "users", user.uid);
+            const userDoc = await getDoc(userRef);
 
-      if (!userDoc.exists()) {
-        await setDoc(userRef, {
-          name: user.displayName,
-          email: user.email,
-          role: "user"
-        });
-        console.log("📝 Microsoft user added to Firestore");
-      }
+            if (!userDoc.exists()) {
+                await setDoc(userRef, {
+                    name: user.displayName,
+                    email: user.email,
+                    role: "user"
+                });
+                console.log("📝 Microsoft user added to Firestore");
+            }
 
-      // Check role for safety
-      const role = (await getDoc(userRef)).data().role;
-      if (role !== "user") {
-        showMessage("This account is not a user account.");
-        return;
-      }
+            // Check role for safety
+            const role = (await getDoc(userRef)).data().role;
+            if (role !== "user") {
+                showMessage("This account is not a user account.", "signInMessage");
+                return;
+            }
 
-      window.location.href = "https://group42backend-cxdxgmhrduhye8b3.uksouth-01.azurewebsites.net/adminHP.html";
+            window.location.href = "https://group42backend-cxdxgmhrduhye8b3.uksouth-01.azurewebsites.net/adminHP.html";
 
-    } catch (error) {
-      console.error("❌ Microsoft Sign-In failed:", error.code, error.message);
-      showMessage("Microsoft Sign-In failed. Try again.");
-    }
-  });
+        } catch (error) {
+            console.error("❌ Microsoft Sign-In failed:", error.code, error.message);
+            showMessage("Microsoft Sign-In failed. Try again.", "signInMessage");
+        }
+    });
 });
-
-// Optional helper (can be shared across scripts)
-function showMessage(message) {
-  const box = document.getElementById("signupMessage") || document.getElementById("loginMessage");
-  if (!box) return;
-
-  box.textContent = message;
-  box.style.display = "block";
-  box.style.opacity = "1";
-  box.style.pointerEvents = "auto";
-
-  setTimeout(() => {
-    box.style.opacity = "0";
-    box.style.pointerEvents = "none";
-    setTimeout(() => {
-      box.style.display = "none";
-    }, 500);
-  }, 4000);
-}
 
 
 
