@@ -47,6 +47,13 @@ jobs:
           JEST_JUNIT_OUTPUT_NAME: junit.xml
         continue-on-error: false
         
+      - name: Debug Coverage Files
+        run: |
+          echo "Checking coverage directory:"
+          ls -la ./coverage/
+          echo "Content of lcov.info:"
+          cat ./coverage/lcov.info || echo "File not found or cannot be read"
+        
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
@@ -62,42 +69,63 @@ jobs:
           name: codecov-coverage
           fail_ci_if_error: true
           
-      - name: Publish Coverage Report
-        uses: irongut/CodeCoverageSummary@v1.3.0
-        with:
-          filename: coverage/lcov.info
-          badge: true
-          format: markdown
-          output: both
+      # Use a GitHub Action that renders coverage from Jest's coverage output directly
+      - name: Process Coverage Report
+        if: always()
+        run: |
+          echo "# Test Coverage Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
           
-      - name: Add Coverage PR Comment
-        uses: marocchino/sticky-pull-request-comment@v2
-        if: github.event_name == 'pull_request'
-        with:
-          recreate: true
-          path: code-coverage-results.md
+          if [ -f "./coverage/lcov.info" ]; then
+            # Extract coverage percentage using grep and awk
+            LINE_COVERAGE=$(grep -A 2 "SF:" ./coverage/lcov.info | grep "LF:" | awk '{covered+=$2} END {print covered}')
+            LINE_HIT=$(grep -A 2 "SF:" ./coverage/lcov.info | grep "LH:" | awk '{hit+=$2} END {print hit}')
+            
+            if [ ! -z "$LINE_COVERAGE" ] && [ ! -z "$LINE_HIT" ] && [ "$LINE_COVERAGE" -ne 0 ]; then
+              COVERAGE_PCT=$(( (LINE_HIT * 100) / LINE_COVERAGE ))
+              echo "- Line Coverage: $LINE_HIT/$LINE_COVERAGE lines ($COVERAGE_PCT%)" >> $GITHUB_STEP_SUMMARY
+              
+              # Create a badge based on coverage percentage
+              if [ "$COVERAGE_PCT" -ge 80 ]; then
+                echo "![Coverage](https://img.shields.io/badge/coverage-${COVERAGE_PCT}%25-brightgreen)" >> $GITHUB_STEP_SUMMARY
+              elif [ "$COVERAGE_PCT" -ge 70 ]; then
+                echo "![Coverage](https://img.shields.io/badge/coverage-${COVERAGE_PCT}%25-yellow)" >> $GITHUB_STEP_SUMMARY
+              else
+                echo "![Coverage](https://img.shields.io/badge/coverage-${COVERAGE_PCT}%25-red)" >> $GITHUB_STEP_SUMMARY
+              fi
+            else
+              echo "- Coverage data could not be processed correctly" >> $GITHUB_STEP_SUMMARY
+            fi
+            
+            # Output individual file coverage
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "## Coverage by File" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "| File | Lines | Covered | Coverage |" >> $GITHUB_STEP_SUMMARY
+            echo "|------|-------|---------|----------|" >> $GITHUB_STEP_SUMMARY
+            
+            # Extract file data using awk
+            FILE=""
+            LINE_COUNT=0
+            LINE_HIT_COUNT=0
+            
+            while IFS= read -r line; do
+              if [[ $line == SF:* ]]; then
+                FILE="${line#SF:}"
+              elif [[ $line == LF:* ]]; then
+                LINE_COUNT="${line#LF:}"
+              elif [[ $line == LH:* ]]; then
+                LINE_HIT_COUNT="${line#LH:}"
+                if [ ! -z "$FILE" ] && [ ! -z "$LINE_COUNT" ] && [ ! -z "$LINE_HIT_COUNT" ] && [ "$LINE_COUNT" -ne 0 ]; then
+                  PCT=$(( (LINE_HIT_COUNT * 100) / LINE_COUNT ))
+                  echo "| $FILE | $LINE_COUNT | $LINE_HIT_COUNT | $PCT% |" >> $GITHUB_STEP_SUMMARY
+                fi
+                FILE=""
+                LINE_COUNT=0
+                LINE_HIT_COUNT=0
+              fi
+            done < ./coverage/lcov.info
+          else
+            echo "- No coverage data found" >> $GITHUB_STEP_SUMMARY
+          fi
           
-      - name: Build And Deploy
-        id: builddeploy
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_MANGO_SAND_070A60E03 }}
-          action: "upload"
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "." # App source code path
-          app_build_command: "echo 'No Build Command'" # Build command - optional
-          output_location: "." # Built app content directory - optional
-          github_id_token: ${{ steps.idtoken.outputs.result }}
-          ###### End of Repository/Build Configurations ######
-
-  close_pull_request_job:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
-    runs-on: ubuntu-latest
-    name: Close Pull Request Job
-    steps:
-      - name: Close Pull Request
-        id: closepullrequest
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          action: "close"
