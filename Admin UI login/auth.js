@@ -36,7 +36,7 @@ function showMessage(message, pId){
     }
 }
 
-const signUp = document.getElementById('signUpbtn');
+const signUp = document.getElementById('signUpBtn');
 
 signUp.addEventListener('click', (event) => {
     event.preventDefault();
@@ -76,7 +76,7 @@ signUp.addEventListener('click', (event) => {
     })
 });
 
-const signIn = document.getElementById('signInbtn');
+const signIn = document.getElementById('signInBtn');
 signIn.addEventListener('click', (event) => {
     event.preventDefault();
     const email = document.getElementById('Email').value;
