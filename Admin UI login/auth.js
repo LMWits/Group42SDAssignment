@@ -13,6 +13,17 @@ import {
 
 const db = getFirestore();
 
+ function showMessage(message, pId){
+ 
+     var errorMessage = document.getElementById(pId);
+     errorMessage.style.display = "block";
+     errorMessage.innerText = message;
+     errorMessage.style.opacity = 1;
+     setTimeout(function(){
+         errorMessage.style.opacity = 0;
+     },4000)
+   }
+
 const signUp = document.getElementById('signUpbtn');
 
   signUp.addEventListener('click', (event) => {
