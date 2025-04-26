@@ -4,7 +4,7 @@ import { auth, db } from './firebaseAuth.js';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 import { doc, getDoc,setDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
-// Utility to show messages
+/*// Utility to show messages
  function showMessage(message) {
   const messageBox = document.getElementById("loginMessage");
   if (!messageBox) return;
@@ -21,7 +21,9 @@ import { doc, getDoc,setDoc } from "https://www.gstatic.com/firebasejs/11.6.0/fi
       messageBox.style.display = "none";
     }, 500);
   }, 4000);
-}
+}*/
+
+import { showMessage } from './auth.js';
 
 // Admin login logic
 document.addEventListener("DOMContentLoaded", () => {
@@ -38,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("📩 Admin logging in with:", email);
 
     if (!email || !password) {
-      showMessage("Please fill in both fields.");
+      showMessage("Please fill in both fields.","loginMessage");
       return;
     }
 
@@ -48,25 +50,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const userDoc = await getDoc(doc(db, "users", uid));
       if (!userDoc.exists()) {
-        showMessage("No admin record found. Contact support.");
+        showMessage("No admin record found. Contact support.","loginMessage");
         return;
       }
 
       const role = userDoc.data().role;
       if (role === "admin") {
-        window.location.href = "adminLogin.html";
+        window.location.href = "adminDashboard.html";
       } else if (role === "user") {
-        showMessage("This is a user account. Please use the user login page.");
+        showMessage("This is a user account. Please use the user login page.","loginMessage");
       } else {
-        showMessage("Unknown role. Please contact support.");
+        showMessage("Unknown role. Please contact support.","loginMessage");
       }
 
     } catch (error) {
       console.error("❌ Admin login failed:", error.code, error.message);
       if (error.code === "auth/invalid-credential" || error.code === "auth/user-not-found") {
-        showMessage("Incorrect email or password.");
+        showMessage("Incorrect email or password.","loginMessage");
       } else {
-        showMessage("Login failed: " + error.message);
+        showMessage("Login failed: " + error.message,"loginMessage");
       }
     }
   });
@@ -82,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("📝 New user signing up with:", email);
 
     if (!name || !email || !password) {
-      showMessage("Please fill in all fields.");
+      showMessage("Please fill in all fields.","loginMessage");
       return;
     }
 
@@ -99,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
         createdAt: new Date()
       });
 
-      showMessage("Account created successfully! You can now sign in.");
+      showMessage("Account created successfully! You can now sign in.","loginMessage");
 
       // Optional: Switch to sign-in form automatically
       document.getElementById("signUpLink").click();
@@ -107,11 +109,11 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (error) {
       console.error("❌ Sign-up failed:", error.code, error.message);
       if (error.code === "auth/email-already-in-use") {
-        showMessage("Email already in use.");
+        showMessage("Email already in use.","loginMessage");
       } else if (error.code === "auth/weak-password") {
-        showMessage("Password should be at least 6 characters.");
+        showMessage("Password should be at least 6 characters.","loginMessage");
       } else {
-        showMessage("Sign-up failed: " + error.message);
+        showMessage("Sign-up failed: " + error.message,"loginMessage");
       }
     }
   });
