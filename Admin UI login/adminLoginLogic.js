@@ -4,25 +4,6 @@ import { auth, db } from './firebaseAuth.js';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 import { doc, getDoc,setDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
-/*// Utility to show messages
- function showMessage(message) {
-  const messageBox = document.getElementById("loginMessage");
-  if (!messageBox) return;
-
-  messageBox.textContent = message;
-  messageBox.style.display = "block";
-  messageBox.style.opacity = "1";
-  messageBox.style.pointerEvents = "auto";
-
-  setTimeout(() => {
-    messageBox.style.opacity = "0";
-    messageBox.style.pointerEvents = "none";
-    setTimeout(() => {
-      messageBox.style.display = "none";
-    }, 500);
-  }, 4000);
-}*/
-
 import { showMessage } from './auth.js';
 
 // Admin login logic
