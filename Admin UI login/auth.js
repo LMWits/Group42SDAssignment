@@ -1,8 +1,8 @@
-import { auth, provider } from './firebaseAuth.js';
+import { auth, provider,db } from './firebaseAuth.js';
 import {
-  signInWithPopup, 
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword 
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 import {
   getFirestore,
@@ -16,15 +16,15 @@ function showMessage(message, pId){
     var errorMessage = document.getElementById(pId);
     if (!errorMessage) {
         // Fallback to generic message elements if pId element doesn't exist
-        errorMessage = document.getElementById("signupMessage") || document.getElementById("loginMessage");
+        errorMessage = document.getElementById("loginMessage")
     }
-    
+
     if (errorMessage) {
         errorMessage.style.display = "block";
         errorMessage.innerText = message;
         errorMessage.style.opacity = 1;
         errorMessage.style.pointerEvents = "auto";
-        
+
         setTimeout(function(){
             errorMessage.style.opacity = 0;
             errorMessage.style.pointerEvents = "none";
@@ -55,7 +55,7 @@ signUp.addEventListener('click', (event) => {
             email: email,
             name: name,
         };
-        showMessage('Acount Created Successfully', 'signInMessage');
+        showMessage('Account Created Successfully', 'loginMessage');
         const docRef = doc(db, "users", user.uid);
         setDoc(docRef, userData)
         .then(() => {
@@ -68,9 +68,9 @@ signUp.addEventListener('click', (event) => {
     .catch((error) => {
         const errorCode = error.code;
         if(errorCode == 'auth/email-already-in-use') {
-            showMessage('Email Address Already Exists!', 'signInMessage');
+            showMessage('Email Address Already Exists!', 'loginMessage');
         } else {
-            showMessage('Unable to Create User', 'signInMessage');
+            showMessage('Unable to Create User', 'loginMessage');
         }
     })
 });
@@ -83,7 +83,7 @@ signIn.addEventListener('click', (event) => {
 
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-        showMessage("Login Is Successful",'signInMessage');
+        showMessage("Login Is Successful",'loginMessage');
         const user = userCredential.user;
         localStorage.setItem('loggedInUserId', user.uid);
         window.location.href = "https://group42backend-cxdxgmhrduhye8b3.uksouth-01.azurewebsites.net/adminHP.html";
@@ -91,11 +91,11 @@ signIn.addEventListener('click', (event) => {
     .catch((error) => {
         const errorCode = error.code;
         if(errorCode === 'auth/invalid-credential'){
-            showMessage('Incorrect Email or Password', 'signInMessage');
+            showMessage('Incorrect Email or Password', 'loginMessage');
         } else if(email == null || password == null){
-            showMessage('Incorrect Email or Password', 'signInMessage');
+            showMessage('Incorrect Email or Password', 'loginMessage');
         } else {
-            showMessage('Account Does Not Exist', 'signInMessage');
+            showMessage('Account Does Not Exist', 'loginMessage');
         }
     })
 });
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Check role for safety
             const role = (await getDoc(userRef)).data().role;
             if (role !== "user") {
-                showMessage("This account is not a user account.", "signInMessage");
+                showMessage("This account is not a user account.", "loginMessage");
                 return;
             }
 
@@ -132,10 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error("❌ Microsoft Sign-In failed:", error.code, error.message);
-            showMessage("Microsoft Sign-In failed. Try again.", "signInMessage");
+            showMessage("Microsoft Sign-In failed. Try again.", "loginMessage");
         }
     });
 });
-
-
-
