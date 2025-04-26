@@ -5,7 +5,7 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "http
 import { doc, getDoc,setDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
 // Utility to show messages
-function showMessage(message) {
+ function showMessage(message) {
   const messageBox = document.getElementById("loginMessage");
   if (!messageBox) return;
 
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const role = userDoc.data().role;
       if (role === "admin") {
-        window.location.href = "adminDashboard.html";
+        window.location.href = "adminLogin.html";
       } else if (role === "user") {
         showMessage("This is a user account. Please use the user login page.");
       } else {
