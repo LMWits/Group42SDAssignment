@@ -1,78 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>User Access</title>
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="./firebaseAuth.js"></script>
-  <script type="module" src="./auth.js"></script>
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <meta charset="UTF-8" />
+  <title>User Login</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="./UserLoginLogic.js"></script>
+  <script type="module" src="./auth.js"></script> 
 </head>
 <body>
   <article class="form-group">
-    <form>
-      <h1 id="titleField">Sign Up</h1>
-      <p id="signInMessage" class="errorMessage" style="display:none;"></p>
+    <h1>Sign In</h1>
+    <p id="loginMessage" class="errorMessage" style="display:none; color:red;"></p>
 
-      <section class="input-field">
-        <section class="input-box" id="nameField">
-          <input id="Name" type="text" placeholder="Name">
-        </section>
-        <section class="input-box">
-          <input id="Email" type="text" placeholder="Email">
-        </section>
-        <section class="input-box">
-          <input id="Password" type="password" placeholder="Password">
-        </section>
+    <section class="input-field">
+      <section class="input-box">
+        <input id="Email" type="email" placeholder="Email">
       </section>
+      <section class="input-box">
+        <input id="Password" type="password" placeholder="Password">
+      </section>
+    </section>
 
-      <section class="sendBtn">
-        <button type="submit" id="signInbtn" class="hidden">Sign In</button>
-        <button type="submit" id="signUpbtn">Sign Up</button>
-      </section>
+    <section class="sendBtn">
+      <button type="submit" id="loginBtn"> Sign In</button>
+    </section>
 
-      <section class="or-divider">
-        <p class="or-text">OR</p>
-      </section>
+    <section class="or-divider">
+      <p class="or-text">OR</p>
+    </section>
 
-      <section class="third-party">
-        <button id="MSlogin" type="button">
-          <img src="mslogo.png" alt="Microsoft Logo" > Sign in with Microsoft
-        </button>
-      </section>
+    <section class="third-party">
+      <button id="MSlogin" type="button">
+        <img src="mslogo.png" alt="Microsoft Logo" style="height:20px; vertical-align:middle;"> 
+        Sign in with Microsoft
+      </button>
+    </section>
 
-      <section class="accLink">
-        <button type="button" id="signUpLink">Have an account? Sign In Here</button>
-        <button type="button" id="signInLink" class="hidden">Don't have an account? Sign Up Here</button>
-      </section>
-    </form>
+    <section class="accLink">
+      <p>Don't have an account? <a href="userSignUp.html">Sign Up Here</a></p>
+    </section>
   </article>
-
-  <script>
-    const signUpLink = document.getElementById("signUpLink");
-    const signInLink = document.getElementById("signInLink");
-    const nameField = document.getElementById("nameField");
-    const titleField = document.getElementById("titleField");
-    const signUpbtn = document.getElementById("signUpbtn");
-    const signInbtn = document.getElementById("signInbtn");
-
-    signUpLink.onclick = function () {
-      nameField.style.maxHeight = "0";
-      titleField.textContent = "Sign In";
-      signUpLink.classList.add("hidden");
-      signInLink.classList.remove("hidden");
-      signUpbtn.classList.add("hidden");
-      signInbtn.classList.remove("hidden");
-    };
-
-    signInLink.onclick = function () {
-      nameField.style.maxHeight = "60px";
-      titleField.textContent = "Sign Up";
-      signInLink.classList.add("hidden");
-      signUpLink.classList.remove("hidden");
-      signUpbtn.classList.remove("hidden");
-      signInbtn.classList.add("hidden");
-    };
-  </script>
 </body>
 </html>
+
