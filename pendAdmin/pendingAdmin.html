@@ -2,26 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="pendingAdmin.css">
   <title>Pending Admin Sign Up</title>
 </head>
 <body>
-  <h1>Pending Admin Sign Up</h1>
-  <form id="pendingAdminForm">
-    <label for="name">Name:</label><br />
-    <input type="text" id="Name" required /><br />
+    <article class="form-group">
+        <form id="pendingAdminForm">
+            <h1 id="titleField">Pending Admin Sign Up</h1>
 
-    <label for="email">Email:</label><br />
-    <input type="email" id="Email" required /><br />
+            <p id="pendingMessage" style="color: green; display: none;"></p>
 
-    <label for="phone">Phone Number:</label><br />
-    <input type="tel" id="Phone" required /><br />
+            <section class="input-field">
+                <section class="input-box">
+                    <input id="Name" type="text" placeholder="Name" required>
+                </section>
+                <section class="input-box">
+                    <input id="Email" type="email" placeholder="Email" required>
+                </section>
+                <section class="input-box">
+                    <input id="Phone" type="tel" placeholder="Phone Number" required>
+                </section>
+                <section class="input-box">
+                    <input id="Password" type="password" placeholder="Password" required>
+                </section>
+            </section>
 
-    <label for="password">Password:</label><br />
-    <input type="password" id="Password" required /><br /><br />
-
-    <button type="submit">Submit</button>
-    <p id="pendingMessage" style="color: green; display: none;"></p>
-  </form>
+            <section class="sendBtn">
+                <button type="submit">Submit</button>
+            </section>
+        </form>
+    </article>  
 
   <script type="module" src="./pendingAdminLogic.js"></script>
 </body>

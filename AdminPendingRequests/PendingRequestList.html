@@ -3,52 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Pending Admin Requests</title>
-  <link rel="stylesheet" href="../style.css">
-  <style>
-    .request-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
-    }
-
-    .request-card {
-      border: 1px solid #ccc;
-      padding: 1rem;
-      border-radius: 8px;
-      background-color: #f9f9f9;
-    }
-
-    .request-card h3 {
-      margin-top: 0;
-    }
-
-    .button-group {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 1rem;
-    }
-
-    .button-group button {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .confirm-btn {
-      background-color: #4CAF50;
-      color: white;
-    }
-
-    .reject-btn {
-      background-color: #f44336;
-      color: white;
-    }
-  </style>
+  <link rel="stylesheet" href="pendingRequestList.css">
+  
 </head>
 <body>
-  <h1>Pending Admin Requests</h1>
+  <header>
+    <h1>Pending Admin Requests</h1>
+  </header>
+  
   <section class="request-grid" id="pendingList"></section>
 
   <script type="module" src="./PendingRequestListLogic.js"></script>
