@@ -1,0 +1,131 @@
+name: Azure Static Web Apps CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - main
+
+jobs:
+  build_and_deploy_job:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+    permissions:
+       id-token: write
+       contents: read
+       checks: write
+       pull-requests: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+          lfs: false
+      - name: Install OIDC Client from Core Package
+        run: npm install @actions/core@1.6.0 @actions/http-client
+      - name: Get Id Token
+        uses: actions/github-script@v6
+        id: idtoken
+        with:
+           script: |
+               const coredemo = require('@actions/core')
+               return await coredemo.getIDToken()
+           result-encoding: string
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Install jest-junit for GitHub Actions test reporting
+        run: npm install --save-dev jest-junit
+        
+      - name: Run Tests
+        run: npm test -- --ci --reporters=default --reporters=jest-junit
+        env:
+          JEST_JUNIT_OUTPUT_DIR: ./test-results
+          JEST_JUNIT_OUTPUT_NAME: junit.xml
+        continue-on-error: false
+        
+      - name: Debug Coverage Files
+        run: |
+          echo "Checking coverage directory:"
+          ls -la ./coverage/
+          echo "Content of lcov.info:"
+          cat ./coverage/lcov.info || echo "File not found or cannot be read"
+        
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: ./test-results/*.xml
+          
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-coverage
+          fail_ci_if_error: true
+          
+      # Use a GitHub Action that renders coverage from Jest's coverage output directly
+      - name: Process Coverage Report
+        if: always()
+        run: |
+          echo "# Test Coverage Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -f "./coverage/lcov.info" ]; then
+            # Extract coverage percentage using grep and awk
+            LINE_COVERAGE=$(grep -A 2 "SF:" ./coverage/lcov.info | grep "LF:" | awk '{covered+=$2} END {print covered}')
+            LINE_HIT=$(grep -A 2 "SF:" ./coverage/lcov.info | grep "LH:" | awk '{hit+=$2} END {print hit}')
+            
+            if [ ! -z "$LINE_COVERAGE" ] && [ ! -z "$LINE_HIT" ] && [ "$LINE_COVERAGE" -ne 0 ]; then
+              COVERAGE_PCT=$(( (LINE_HIT * 100) / LINE_COVERAGE ))
+              echo "- Line Coverage: $LINE_HIT/$LINE_COVERAGE lines ($COVERAGE_PCT%)" >> $GITHUB_STEP_SUMMARY
+              
+              # Create a badge based on coverage percentage
+              if [ "$COVERAGE_PCT" -ge 80 ]; then
+                echo "![Coverage](https://img.shields.io/badge/coverage-${COVERAGE_PCT}%25-brightgreen)" >> $GITHUB_STEP_SUMMARY
+              elif [ "$COVERAGE_PCT" -ge 70 ]; then
+                echo "![Coverage](https://img.shields.io/badge/coverage-${COVERAGE_PCT}%25-yellow)" >> $GITHUB_STEP_SUMMARY
+              else
+                echo "![Coverage](https://img.shields.io/badge/coverage-${COVERAGE_PCT}%25-red)" >> $GITHUB_STEP_SUMMARY
+              fi
+            else
+              echo "- Coverage data could not be processed correctly" >> $GITHUB_STEP_SUMMARY
+            fi
+            
+            # Output individual file coverage
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "## Coverage by File" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "| File | Lines | Covered | Coverage |" >> $GITHUB_STEP_SUMMARY
+            echo "|------|-------|---------|----------|" >> $GITHUB_STEP_SUMMARY
+            
+            # Extract file data using awk
+            FILE=""
+            LINE_COUNT=0
+            LINE_HIT_COUNT=0
+            
+            while IFS= read -r line; do
+              if [[ $line == SF:* ]]; then
+                FILE="${line#SF:}"
+              elif [[ $line == LF:* ]]; then
+                LINE_COUNT="${line#LF:}"
+              elif [[ $line == LH:* ]]; then
+                LINE_HIT_COUNT="${line#LH:}"
+                if [ ! -z "$FILE" ] && [ ! -z "$LINE_COUNT" ] && [ ! -z "$LINE_HIT_COUNT" ] && [ "$LINE_COUNT" -ne 0 ]; then
+                  PCT=$(( (LINE_HIT_COUNT * 100) / LINE_COUNT ))
+                  echo "| $FILE | $LINE_COUNT | $LINE_HIT_COUNT | $PCT% |" >> $GITHUB_STEP_SUMMARY
+                fi
+                FILE=""
+                LINE_COUNT=0
+                LINE_HIT_COUNT=0
+              fi
+            done < ./coverage/lcov.info
+          else
+            echo "- No coverage data found" >> $GITHUB_STEP_SUMMARY
+          fi
+          
