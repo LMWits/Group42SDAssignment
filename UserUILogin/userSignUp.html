@@ -2,19 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>User Login</title>
+  <title>User Sign Up</title>
   <link rel="stylesheet" href="style.css" />
-  <script type="module" src="./UserLoginLogic.js"></script>
+  <script type="module" src="./userSignUpLogic.js"></script>
   <script type="module" src="./auth.js"></script> 
 </head>
 <body>
   <article class="form-group">
-    <h1>Sign In</h1>
-    <p id="loginMessage" class="errorMessage" style="display:none; color:red;"></p>
+    <h1>Sign Up</h1>
+    <p id="signupMessage" class="errorMessage" style="display:none; color:red;"></p>
 
     <section class="input-field">
+      <section class="input-box" id="nameField">
+        <input id = "Name" type="text" placeholder="Name">
+      </section>
       <section class="input-box">
-        <input id="Email" type="email" placeholder="Email">
+        <input id="Email" type="text" placeholder="Email">
       </section>
       <section class="input-box">
         <input id="Password" type="password" placeholder="Password">
@@ -22,7 +25,7 @@
     </section>
 
     <section class="sendBtn">
-      <button type="submit" id="loginBtn"> Sign In</button>
+      <button type="submit" id="signupBtn"> Sign Up</button>
     </section>
 
     <section class="or-divider">
@@ -31,15 +34,14 @@
 
     <section class="third-party">
       <button id="MSlogin" type="button">
-        <img src="mslogo.png" alt="Microsoft Logo" style="height:20px; vertical-align:middle;"> 
+        <img src="mslogo.png" alt="Microsoft Logo" style="height: 20px; vertical-align: middle;" />
         Sign in with Microsoft
       </button>
     </section>
 
     <section class="accLink">
-      <p>Don't have an account? <a href="userSignUp.html">Sign Up Here</a></p>
+      <p>Already have an account? <a href="userlogin.html">Sign In Here</a></p>
     </section>
   </article>
 </body>
 </html>
-

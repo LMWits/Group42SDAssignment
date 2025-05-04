@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard</title>
+  <style>
+    #pendingPopup {
+      display: none;
+      background-color: #e9f5ff;
+      border: 1px solid #b3d7ff;
+      padding: 1rem;
+      margin: 1rem auto;
+      max-width: 600px;
+      border-radius: 8px;
+      color: #003366;
+      font-family: Arial, sans-serif;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>Hi, you are logged into arcHIVE as a user</h1>
+
+  <section id="pendingPopup" role="status" aria-live="polite"></section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const role = localStorage.getItem("role");
+      if (role === "pending_admin") {
+        const submittedAt = localStorage.getItem("submittedAt");
+        if (submittedAt) {
+          const reviewDate = new Date(submittedAt);
+          reviewDate.setDate(reviewDate.getDate() + 7);
+
+          const formattedDate = reviewDate.toLocaleDateString('en-ZA', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+
+          const message = `
+            <strong>👋 Welcome, pending admin!</strong><br><br>
+            Thank you for signing up. Your admin request is being reviewed.<br>
+            You can enjoy all regular user features in the meantime.<br><br>
+            You’ll be notified about the outcome by <strong>${formattedDate}</strong>.
+          `;
+
+          const popup = document.getElementById("pendingPopup");
+          popup.innerHTML = message;
+          popup.style.display = "block";
+        }
+      }
+    });
+  </script>
+</body>
+</html>
