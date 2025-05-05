@@ -9,12 +9,9 @@
     <body>
         <article class="form-group">
             <form>
-                <h1 id="titleField">Sign Up</h1>
+                <h1 id="titleField">Sign In</h1>
                 <p id="loginMessage" class="errorMessage"></p>
                 <section class="input-field">
-                    <section class="input-box" id="nameField">
-                        <input id = "Name" type="text" placeholder="Name">
-                    </section>
                     <section class="input-box">
                         <input id="Email" type="text" placeholder="Email">
                     </section>
@@ -24,23 +21,14 @@
                 </section>
 
                 <section class="sendBtn">
-                    <button type="button" id="signInBtn" class="hidden"> Sign In</button>
-                    <button type="button" id="signUpBtn"> Sign Up</button>
+                    <button type="button" id="signInBtn"> Sign In</button>
                 </section>
 
                 <section class="or-divider">
                     <p class="or-text">OR</p>
                   </section>
 
-                <section class="third-party">
-                    <button id="MSlogin" type="button">
-                        <img src="mslogo.png" alt="Microsoft Logo" > Sign in with Microsoft
-                      </button>
-                </section>
-
                <section class="accLink">
-                <button type="button" id="signUpLink">Have an account? Sign In Here</button>
-                <button type="button" id="signInLink" class="hidden">Don't have an account? Sign Up Here</button>
                 <button type="button" id="requestAdminBtn">Looking to Request an Admin Account? Click here</button>
                </section>
 
@@ -48,30 +36,6 @@
         </article>
 
         <script>
-            let signUpLink = document.getElementById("signUpLink");
-            let signInLink = document.getElementById("signInLink");
-            let nameField = document.getElementById("nameField");
-            let titleField = document.getElementById("titleField");
-            let signUpbtn=document.getElementById("signUpBtn")
-            let signInbtn=document.getElementById("signInBtn")
-
-            signUpLink.onclick = function () {
-              nameField.style.maxHeight = "0";
-              titleField.innerHTML = "Sign In";
-              signUpLink.classList.add("hidden");
-              signInLink.classList.remove("hidden");
-              signUpbtn.classList.add("hidden");
-              signInbtn.classList.remove("hidden");
-            };
-
-            signInLink.onclick = function () {
-              nameField.style.maxHeight = "60px";
-              titleField.innerHTML = "Sign Up";
-              signInLink.classList.add("hidden");
-              signUpLink.classList.remove("hidden");
-              signUpbtn.classList.remove("hidden");
-              signInbtn.classList.add("hidden");
-            };
 
             document.getElementById("requestAdminBtn").onclick = function () {
                 window.location.href = "../pendAdmin/pendingAdmin.html";
