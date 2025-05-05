@@ -31,7 +31,7 @@ function showMessage(message, pId) {
   }
 }
 
-// Admin Sign-Up
+/* // Admin Sign-Up
 const signUp = document.getElementById('signUpBtn');
 
 signUp.addEventListener('click', (event) => {
@@ -70,6 +70,7 @@ signUp.addEventListener('click', (event) => {
       }
     });
 });
+*/
 
 // Admin Sign-In
 const signIn = document.getElementById('signInBtn');
