@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       showMessage("Account created successfully!");
       setTimeout(() => {
-        window.location.href = "userDashboard.html";
+        window.location.href = "https://group42backendv2-hyckethpe4fwfjga.uksouth-01.azurewebsites.net/userHP.html";
       }, 1000);
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
