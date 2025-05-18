@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
           localStorage.setItem("submittedAt", userData.submittedAt.toDate().toISOString());
         }
 
-        window.location.href = "userDashboard.html";
+        window.location.href = "https://group42backendv2-hyckethpe4fwfjga.uksouth-01.azurewebsites.net/userHP.html";
       } else {
         showMessage("Unknown role. Please contact support.");
       }
