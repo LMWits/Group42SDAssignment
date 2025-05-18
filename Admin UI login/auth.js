@@ -99,7 +99,22 @@ signIn.addEventListener('click', (event) => {
 
       showMessage("Login successful", 'loginMessage');
       localStorage.setItem('loggedInUserId', user.uid);
-      window.location.href = "https://group42backendv2-hyckethpe4fwfjga.uksouth-01.azurewebsites.net/adminHP.html";
+      fetch("https://group42backendv2-hyckethpe4fwfjga.uksouth-01.azurewebsites.net/authorize", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${user.accessToken}`
+        },
+        credentials: "include", // <-- This is critical!
+        body: JSON.stringify({
+          userId: user.uid,
+          email: email,
+          role: role
+        })
+      })
+      .then((data) => {
+        window.location.href = `https://group42backendv2-hyckethpe4fwfjga.uksouth-01.azurewebsites.net/adminHP.html`;
+      })
     })
     .catch((error) => {
       const errorCode = error.code;
