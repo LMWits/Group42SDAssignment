@@ -101,55 +101,54 @@ showMessage("Login successful", 'loginMessage');
 localStorage.setItem('loggedInUserId', user.uid);
 
 // Debug any potential blockers
-console.log("Starting token generation...");
-
-// Get the Firebase ID token (different from accessToken)
-user.getIdToken(true) // Force refresh to ensure token is current
-  .then(idToken => {
-    console.log("Firebase token generated successfully");
-    // Store the token in localStorage for future requests
-    localStorage.setItem('authToken', idToken);
-    
-    // Add debug info
-    console.log("Current tokens:", {
-      firebaseToken: idToken.substring(0, 10) + "..." // Show only beginning for security
-    });
-    
-    fetch("https://group42backendv2-hyckethpe4fwfjga.uksouth-01.azurewebsites.net/authorize", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${idToken}` // Use the ID token
-      },
-      credentials: "include", // Required for cookies
-      body: JSON.stringify({
-        userId: user.uid,
-        email: email,
-        role: role
-      })
-    })
-    .then(response => {
-      console.log("Server auth response status:", response.status);
-      if (!response.ok) {
-        throw new Error(`Authorization failed with status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log("Authorization successful:", data);
-      
-      // Store the server token if available
-      if (data.token) {
-        localStorage.setItem('serverToken', data.token);
-        
-        // Direct redirect approach with token in URL
-        // This is more reliable than fetch + redirect
-        window.location.href = `https://group42backendv2-hyckethpe4fwfjga.uksouth-01.azurewebsites.net/adminHP.html?token=${encodeURIComponent(data.token)}`;
-      } else {
-        // For backward compatibility if no token in response
-        window.location.href = "https://group42backendv2-hyckethpe4fwfjga.uksouth-01.azurewebsites.net/adminHP.html";
-      }
-    })
+  // Get the Firebase ID token (different from accessToken)
+      user.getIdToken(true) // Force refresh to ensure token is current
+        .then(idToken => {
+          // Store the token in localStorage for future requests
+          localStorage.setItem('authToken', idToken);
+          
+          fetch("https://group42backendv2-hyckethpe4fwfjga.uksouth-01.azurewebsites.net/authorize", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${idToken}` // Use the ID token
+            },
+            credentials: "include", // Required for cookies
+            body: JSON.stringify({
+              userId: user.uid,
+              email: email,
+              role: role
+            })
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`Authorization failed with status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log("Authorization successful:", data);
+            
+            // Store the server token if available
+            if (data.token) {
+              localStorage.setItem('serverToken', data.token);
+              
+              // Direct redirect with token in URL
+              window.location.href = `https://group42backendv2-hyckethpe4fwfjga.uksouth-01.azurewebsites.net/adminHP.html?token=${encodeURIComponent(data.token)}`;
+            } else {
+              // For backward compatibility if no token in response
+              window.location.href = "https://group42backendv2-hyckethpe4fwfjga.uksouth-01.azurewebsites.net/adminHP.html";
+            }
+          })
+          .catch(error => {
+            showMessage(`Authentication error: ${error.message}`, 'loginMessage');
+            console.error("Authorization error:", error);
+          });
+        })
+        .catch(error => {
+          showMessage(`Token generation failed: ${error.message}`, 'loginMessage');
+          console.error("Token error:", error);
+        });
     .catch(error => {
       showMessage(`Authentication error: ${error.message}`, 'loginMessage');
       console.error("Authorization error:", error);
