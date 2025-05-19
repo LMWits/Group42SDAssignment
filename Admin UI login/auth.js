@@ -97,26 +97,54 @@ signIn.addEventListener('click', (event) => {
         return;
       }
 
-      const idToken = await user.getIdToken();
-
-      showMessage("Login successful", 'loginMessage');
-      localStorage.setItem('loggedInUserId', user.uid);
-      fetch("https://group42backendv2-hyckethpe4fwfjga.uksouth-01.azurewebsites.net/authorize", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${user.accessToken}`
-        },
-        credentials: "include", // <-- This is critical!
-        body: JSON.stringify({
-          userId: user.uid,
-          email: email,
-          role: role
-        })
+      // Get the Firebase ID token (different from accessToken)
+user.getIdToken(true) // Force refresh to ensure token is current
+  .then(idToken => {
+    // Store the token in localStorage for future requests
+    localStorage.setItem('authToken', idToken);
+    
+    fetch("https://group42backendv2-hyckethpe4fwfjga.uksouth-01.azurewebsites.net/authorize", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${idToken}` // Use the ID token
+      },
+      credentials: "include", // Required for cookies
+      body: JSON.stringify({
+        userId: user.uid,
+        email: email,
+        role: role
       })
-      .then((data) => {
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Authorization failed with status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log("Authorization successful:", data);
+      
+      // Verify we have the token/session before redirecting
+      if (data.success || data.token || data.authorized) {
+        // If server provides a token, store it
+        if (data.token) {
+          localStorage.setItem('serverToken', data.token);
+        }
         window.location.href = `https://group42backendv2-hyckethpe4fwfjga.uksouth-01.azurewebsites.net/adminHP.html`;
-      })
+      } else {
+        throw new Error("Authorization response missing expected confirmation");
+      }
+    })
+    .catch(error => {
+      showMessage(`Authentication error: ${error.message}`, 'loginMessage');
+      console.error("Authorization error:", error);
+    });
+  })
+  .catch(error => {
+    showMessage(`Token generation failed: ${error.message}`, 'loginMessage');
+    console.error("Token error:", error);
+  });
     })
     .catch((error) => {
       const errorCode = error.code;
