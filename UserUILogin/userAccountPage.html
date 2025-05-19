@@ -150,7 +150,7 @@
         }
       }
     } else {
-      window.location.href = 'userLogin.html';
+      window.location.href = 'userlogin.html';
     }
   });
 
@@ -177,7 +177,7 @@
   window.logout = async function () {
     try {
       await signOut(auth);
-      window.location.href = 'userLogin.html';
+      window.location.href = 'userlogin.html';
     } catch (error) {
       alert('Error logging out: ' + error.message);
     }
