@@ -10,11 +10,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     background-size: cover;
     background-repeat: no-repeat;
     background-position:center;
-
+    padding: 1rem;
   }
 
   .form-group {
@@ -144,14 +144,15 @@
     margin-top: 1rem;
   }
 
-  .accLink button {
-    background: none;
-    border: none;
+  .accLink p,
+  .accLink a {
     color: white;
     font-weight: bold;
-    text-decoration: underline;
     cursor: pointer;
-    font-size: 0.95rem;
+  }
+
+  .accLink a {
+    text-decoration: underline;
   }
 
   .errorMessage {
@@ -215,4 +216,30 @@
 
 .back-button:hover {
     background: #ffff01;
+}
+
+@media (max-width: 480px) {
+  .form-group {
+    padding: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  .sendBtn button,
+  .third-party button {
+    font-size: 0.95rem;
+    padding: 0.6rem;
+  }
+
+  .rounded-button {
+    width: 120px;
+    height: 120px;
+    font-size: 80px;
+  }
+
+  .accLink button {
+    font-size: 0.85rem;
+  }
 }

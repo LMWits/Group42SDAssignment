@@ -1,5 +1,7 @@
 <html>
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
         <link rel="ge" href="/index.html">
         <script type ="module" src="./firebaseAuth.js"></script>
@@ -10,7 +12,7 @@
         <button onclick="window.history.back()" class="back-button">Back</button>
         <article class="form-group">
             <form>
-                <h1 id="titleField">Sign In</h1>
+                <h1 id="titleField">Admin Sign In</h1>
                 <p id="loginMessage" class="errorMessage"></p>
                 <section class="input-field">
                     <section class="input-box">
@@ -30,8 +32,8 @@
                   </section>
 
                <section class="accLink">
-                <button type="button" id="requestAdminBtn">Looking to Request an Admin Account? Click here</button>
-               </section>
+                  <p>Looking to Request an Admin Account? <a href="../pendAdmin/pendingAdmin.html">Click here</a></p>
+                </section>
 
             </form>
         </article>
