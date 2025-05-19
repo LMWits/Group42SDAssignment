@@ -97,6 +97,8 @@ signIn.addEventListener('click', (event) => {
         return;
       }
 
+      const idToken = await user.getIdToken();
+
       showMessage("Login successful", 'loginMessage');
       localStorage.setItem('loggedInUserId', user.uid);
       fetch("https://group42backendv2-hyckethpe4fwfjga.uksouth-01.azurewebsites.net/authorize", {
