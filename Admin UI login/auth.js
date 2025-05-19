@@ -145,15 +145,6 @@ localStorage.setItem('loggedInUserId', user.uid);
             console.error("Authorization error:", error);
           });
         })
-        .catch(error => {
-          showMessage(`Token generation failed: ${error.message}`, 'loginMessage');
-          console.error("Token error:", error);
-        });
-    .catch(error => {
-      showMessage(`Authentication error: ${error.message}`, 'loginMessage');
-      console.error("Authorization error:", error);
-    });
-  })
   .catch(error => {
     showMessage(`Token generation failed: ${error.message}`, 'loginMessage');
     console.error("Token error:", error);
