@@ -243,3 +243,120 @@
     font-size: 0.85rem;
   }
 }
+/* --- Landing page styles --- */
+
+.hero-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.searchbar-heading {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  padding: 1rem 3rem;
+  border-radius: 50px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  margin-bottom: 2rem;
+}
+
+.typewriter {
+  font-size: 6rem;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid white;
+  width: 0;
+  animation: typing 2.5s steps(7, end) forwards, blink 0.7s step-start infinite;
+  padding-right: 5px;
+  margin: 0 auto 1.5rem auto;
+  text-align: center;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 7ch }
+}
+
+@keyframes blink {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: white; }
+}
+
+.slogan {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 2rem 0;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.cta-button {
+  background: #ffff01;
+  color: #0b1d3a;
+  border: none;
+  padding: 1.2rem 3rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+  border-radius: 50px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s ease;
+  margin-top: 1rem;
+  display: inline-block;
+  text-align: center;
+}
+
+.cta-button:hover {
+  background: #ffb500;
+  transform: scale(1.05);
+}
+
+.cta-button:focus {
+  outline: 3px solid #ffb500;
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .searchbar-heading {
+    max-width: 400px;
+    padding: 0.8rem 2rem;
+  }
+  .typewriter {
+    font-size: 3.5rem;
+  }
+  .slogan {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+  }
+  .cta-button {
+    font-size: 1.3rem;
+    padding: 1rem 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .searchbar-heading {
+    max-width: 90%;
+    padding: 0.6rem 1.2rem;
+  }
+  .typewriter {
+    font-size: 2.5rem;
+  }
+  .slogan {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  .cta-button {
+    font-size: 1rem;
+    padding: 0.8rem 2rem;
+  }
+}
+
