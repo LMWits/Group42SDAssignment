@@ -64,7 +64,8 @@ Here is the credential authorisation page.
 
 ## Testing
 
-Most code in this repo is Firebase related, no necessary tests identified in repo. 
+Unit tests and code coverage are integrated via `jest`.
+Most code in this repo is Firebase related, no more necessary tests identified in repo. 
 
 ## Contributing
 
