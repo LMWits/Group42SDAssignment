@@ -58,6 +58,14 @@ Here is the credential authorisation page.
 
 **Authentication:** Firebase Authentication
 
+**CI/CD:** GitHub Actions  
+
+**Deployment:** Microsoft Azure  
+
+## Testing
+
+Most code in this repo is Firebase related, no necessary tests identified in repo. 
+
 ## Contributing
 
 Contributions are always welcome!
