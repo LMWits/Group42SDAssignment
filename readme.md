@@ -15,6 +15,7 @@ Features
 
 * 🌐 Web interface for login
 
+---
 
 ## Getting Started
 
@@ -24,6 +25,9 @@ Make sure you have the following installed:
 * A code editor like VS Code
 
 * A Firebase account
+
+---
+
 ## Installation
 
 1. Clone the repository:
@@ -36,10 +40,14 @@ cd Group42SDAssignment
 2. Configure Firebase
 
 3. Run a simple HTTP server running from index.html.
-    
+
+---
+
 ## Deployment
 
 There is an automatic CI/CD (Github Actions) that handles the tests, code coverage and deployments to Microsoft Azure. 
+
+---
 
 ## Screenshots
 
@@ -47,10 +55,11 @@ Here is the Role Selection page.
 
 ![App Screenshot](./Screenshot%202025-05-25%20at%2021.35.01.png)
 
-
 Here is the credential authorisation page.
 
 ![App Screenshot](./Screenshot%202025-05-25%20at%2021.40.05.png)
+
+---
 
 ## Tech Stack
 
@@ -62,10 +71,14 @@ Here is the credential authorisation page.
 
 **Deployment:** Microsoft Azure  
 
+---
+
 ## Testing
 
 Unit tests and code coverage are integrated via `jest`.
 Most code in this repo is Firebase related, no more necessary tests identified in repo. 
+
+---
 
 ## Contributing
 
@@ -73,6 +86,7 @@ Contributions are always welcome!
 
 For major changes, please open an issue first to discuss what you would like to change.
 
+---
 
 ## Usage
 
