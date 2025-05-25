@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Account Details</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('bg1.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    main {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      margin: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .btn-update {
+      background-color: #00c4ff;
+      color: white;
+    }
+
+    .btn-logout {
+      background-color: #ffa500;
+      color: white;
+    }
+
+    #userEmail {
+      text-align: left;
+      word-break: break-word;
+    }
+
+    section.buttons {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h2>Admin Account Details</h2>
+    </header>
+
+    <section>
+      <label for="userEmail">Email:</label>
+      <p id="userEmail">Loading...</p>
+    </section>
+
+    <section>
+      <label for="userName">Name:</label>
+      <input type="text" id="userName" placeholder="Enter your name" />
+      <button class="btn-update" onclick="updateName()">Update Name</button>
+    </section>
+
+    <section class="buttons">
+      <button class="btn-logout" onclick="logout()">Log Out</button>
+    </section>
+  </main>
+
+  <script type="module">
+    import { auth } from './firebaseAuth.js';
+    import {
+      onAuthStateChanged,
+      updateProfile,
+      signOut,
+    } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js';
+
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      setDoc,
+    } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js';
+
+    const db = getFirestore();
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const userDocRef = doc(db, 'users', user.uid);
+          const userDoc = await getDoc(userDocRef);
+
+          // Check if user is admin
+          if (!userDoc.exists() || userDoc.data().role !== 'admin') {
+            alert("Access denied: Admins only.");
+            await signOut(auth);
+            window.location.href = '../index.html';
+            return;
+          }
+
+          const userEmail = document.getElementById('userEmail');
+          const userName = document.getElementById('userName');
+
+          if (userEmail) userEmail.textContent = user.email;
+
+          if (user.displayName) {
+            userName.value = user.displayName;
+            console.log("Set input value to displayName:", user.displayName);
+          } else if (userDoc.data().name) {
+            userName.value = userDoc.data().name;
+            console.log("Set input value from Firestore:", userDoc.data().name);
+          } else {
+            userName.value = '';
+            console.log("No name found.");
+          }
+        } catch (err) {
+          console.error("Error fetching user data:", err);
+          alert("Error verifying admin access.");
+          await signOut(auth);
+          window.location.href = '../index.html';
+        }
+      } else {
+        window.location.href = '../index.html';
+      }
+    });
+
+    window.updateName = async function () {
+      const newName = document.getElementById('userName').value.trim();
+      const user = auth.currentUser;
+
+      if (user && newName !== '') {
+        try {
+          await updateProfile(user, { displayName: newName });
+
+          const userDocRef = doc(db, 'users', user.uid);
+          await setDoc(userDocRef, { name: newName }, { merge: true });
+
+          alert('Name updated successfully!');
+        } catch (error) {
+          alert('Error updating name: ' + error.message);
+        }
+      } else {
+        alert('Name cannot be empty.');
+      }
+    };
+
+    window.logout = async function () {
+      try {
+        await signOut(auth);
+        window.location.href = '../index.html';
+      } catch (error) {
+        alert('Error logging out: ' + error.message);
+      }
+    };
+  </script>
+</body>
+</html>
