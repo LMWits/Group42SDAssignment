@@ -45,12 +45,12 @@ There is an automatic CI/CD (Github Actions) that handles the tests, code covera
 
 Here is the Role Selection page.
 
-![App Screenshot](../Screenshot%202025-05-25%20at%2021.35.01.png)
+![App Screenshot](./Screenshot%202025-05-25%20at%2021.35.01.png)
 
 
 Here is the credential authorisation page.
 
-![App Screenshot](../Screenshot%202025-05-25%20at%2021.40.05.png)
+![App Screenshot](./Screenshot%202025-05-25%20at%2021.40.05.png)
 
 ## Tech Stack
 
