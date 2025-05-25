@@ -17,7 +17,7 @@
       color: #fff;
     }
 
-    .container {
+    main {
       background-color: rgba(0, 0, 0, 0.6);
       padding: 30px 40px;
       border-radius: 12px;
@@ -81,28 +81,34 @@
       text-align: left;
       word-break: break-word;
     }
+
+    section.buttons {
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>User Account Details</h2>
+  <main>
+    <header>
+      <h2>User Account Details</h2>
+    </header>
 
-    <div>
+    <section>
       <label for="userEmail">Email:</label>
       <p id="userEmail">Loading...</p>
-    </div>
+    </section>
 
-    <div>
+    <section>
       <label for="userName">Name:</label>
       <input type="text" id="userName" placeholder="Enter your name" />
       <button class="btn-update" onclick="updateName()">Update Name</button>
-    </div>
+    </section>
 
-    <div style="margin-top: 20px;">
+    <section class="buttons">
       <button class="btn-logout" onclick="logout()">Log Out</button>
       <button class="btn-delete" onclick="deleteAccount()">Delete Account</button>
-    </div>
-  </div>
+    </section>
+  </main>
 
 <script type="module">
   import { auth } from './firebaseAuth.js';
@@ -188,13 +194,9 @@
       const user = auth.currentUser;
       if (user) {
         try {
-          // Delete Firestore user document first
           const userDocRef = doc(db, 'users', user.uid);
           await deleteDoc(userDocRef);
-
-          // Then delete Firebase Auth user
           await deleteUser(user);
-
           alert("Account deleted.");
           window.location.href = 'userlogin.html';
         } catch (error) {
@@ -204,6 +206,6 @@
     }
   };
 </script>
-
 </body>
 </html>
+
