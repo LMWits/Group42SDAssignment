@@ -1,6 +1,8 @@
 
 # arcHIVE
 
+https://gentle-tree-06c29d803.6.azurestaticapps.net/
+
 This repository contains the source code for a web-based login system that supports both admin and user authentication. The system enables secure access control to a web application, allowing different functionalities based on the type of user.
 
 Features
@@ -104,3 +106,4 @@ Upon login, users are redirected to dashboards specific to their roles.
 # Group42 SD Assignment
 
 [![codecov](https://codecov.io/gh/LMWits/Group42SDAssignment/branch/main/graph/badge.svg)](https://codecov.io/gh/LMWits/Group42SDAssignment)
+
